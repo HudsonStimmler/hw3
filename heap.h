@@ -115,8 +115,10 @@ void Heap<T, PComparator>::heapify(size_t i){
     return;
   }
   size_t betterChild = ((dary*i)+1);
-  if(((dary*i)+2) < data.size()){
-    size_t rChild = betterChild+1;
+  size_t rChild = betterChild;
+
+  while((rChild < (data.size()-1)) && (rChild < ((dary*i) + dary))){
+    ++rChild;
     if(comp(data[rChild], data[betterChild])){
       betterChild = rChild;
     }

@@ -4,6 +4,8 @@
 #define NULL 0
 #endif
 
+
+
 /**
  * Node struct for both problems
  */
@@ -15,6 +17,7 @@ struct Node
     Node(int v, Node* n) : val(v), next(n) {}
 };
 
+Node* remove(Node*& node);
 
 /**
  * Given a linked list pointed to by head, creates two lists
@@ -78,13 +81,28 @@ Node* llfilter(Node* head, Comp pred);
 //*****************************************************************************
 
 template <typename Comp>
-Node* llfilter(Node* head, Comp pred)
-{
-    //*********************************************
-    // Provide your implementation below
-    //*********************************************
+Node* llfilter(Node* head, Comp pred){
+    //Base case: When we arive at the end of the list set the final next value to nullptr
+    if (head == nullptr){
+        return nullptr;
+    }
 
+    //When the values needs to be removed
+    if (pred(head->val)){
+        //Call the remove helper function that returns a pointer to the next node
+        Node* next = remove(head); 
+        //Recursively call the function to the next node
+        //Returns to the head
+        return llfilter(next, pred);
+    } 
 
+    //When the value needs to be kept in the list, it becomes the head
+    else{
+        //Recursively call the function, so its return attaches itself to head->next
+        head->next = llfilter(head->next, pred);
+        //Return the new list
+        return head;
+    }
 }
 
 #endif

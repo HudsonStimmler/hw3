@@ -86,6 +86,40 @@ int main(int argc, char* argv[])
     print(head);
 
     // Test out your linked list code
+    Node* smaller;
+    Node* larger;
+    llpivot(head, smaller, larger, 10);
+    cout << "Using 10 as a pivot, head should be an empty list, smaller should contain 8 9 6 8, larger should contain 12 19" << endl;
+    cout << "head list: ";
+    print(head);
+    cout << "smaller list: ";
+    print(smaller);
+    cout << "larger list: ";
+    print(larger);
+    dealloc(head);
+    dealloc(smaller);
+    dealloc(larger);
+
+    Node* headw = readList(argv[1]);
+    cout << "Original list part 2: ";
+    print(headw);
+
+    struct func {
+        // returns true for even numbers
+        bool operator() (int i){
+            if (i % 2 == 0){
+                return false;
+            } 
+            else{
+                return true;
+            }
+        }
+    };
+    func x;
+    headw = llfilter(headw, x);
+    cout << "Should be only even numbers" << endl;
+    print(headw);
+
 
 
 
